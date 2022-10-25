@@ -1,4 +1,4 @@
-import randon_genetator as rg
+import randon_generator as rg
 
 gen = rg.GeneratorPureRandom()
 seq = rg.SequenceNumber()

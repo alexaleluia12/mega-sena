@@ -3,7 +3,7 @@ import pickle
 from bs4 import BeautifulSoup
 
 
-html = BeautifulSoup(open('/home/alex/Downloads/resultado-mega.html'), 'html.parser')
+html = BeautifulSoup(open('resultado-mega.html'), 'html.parser')
 def get_mega_sena_numbers(ls):
     FIRST = 2
     SECOND = 3
@@ -39,4 +39,4 @@ for i in ms_numbers:
 with open('./msnumbers', 'wb') as file:
     pickle.dump(shorts_numbers, file)
 
-print('fim parse')
+print('end parse')
