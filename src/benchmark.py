@@ -1,4 +1,5 @@
 import pickle
+from unittest import result
 
 from commons import *
 import randon_generator as rg
@@ -58,6 +59,12 @@ def allWin():
         hitsPR = verifyTotalHits(lines, rg.GeneratorPureRandom)
         print('hits for pr', hitsPR)
 
+def printTableResults(results, name):
+    print(name)
+    for i in range(6, 0, -1):
+        print(i, results.get(i, 0))
+    print('-'*10)
+
 def hits():
     print('hits\n\n')
     with open('./msnumbers', 'rb') as file:
@@ -67,13 +74,13 @@ def hits():
         print('total registers', len(lines))
 
         hitsBF = verifyGroupsOfHits(lines, rg.GeneratorBFLow)
-        print('hits for BF', hitsBF)
+        printTableResults(hitsBF, 'bf')
 
         hitsAA = verifyGroupsOfHits(lines, rg.GeneratorAALow)
-        print('hits for aa', hitsAA)
+        printTableResults(hitsAA, 'aa')
 
         hitsPR = verifyGroupsOfHits(lines, rg.GeneratorPureRandom)
-        print('hits for pr', hitsPR)
+        printTableResults(hitsPR, 'pr')
 
 hits()
 
