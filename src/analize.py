@@ -1,6 +1,8 @@
 import pickle
 import pprint
 
+from commons import *
+
 """
 85 % de chance de cair um numero com mais de um digito
 
@@ -27,17 +29,6 @@ import pprint
  9: 9.65}
 
 """
-
-def convert_to_list(lines):
-    new_lines = []
-    for line in lines:
-        tmp = line.split(',')
-        tmp = [int(i) for i in tmp]
-        new_lines.append(tmp)
-
-
-    return new_lines
-
 
 def count_first_digit(table):
     counts = {}

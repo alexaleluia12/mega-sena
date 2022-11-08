@@ -111,4 +111,6 @@ class SequenceNumber:
                     was_sucessfull = gen.one_digit(self.chosen)
 
         self.chosen.sort()
-        return self.chosen
+        cp = self.chosen.copy()
+        self.chosen = []
+        return cp
