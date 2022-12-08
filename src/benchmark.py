@@ -1,5 +1,6 @@
 import pickle
-from unittest import result
+import time
+import random
 
 from commons import *
 import randon_generator as rg
@@ -27,6 +28,21 @@ def verifyTotalHits(lines, generatorType):
         if countAccert(line, guess):
             hits += 1
     return hits
+
+def multiplyHits(hits):
+    points = 0
+    tableMultiples = {
+        1: 0.01,
+        2: 0.2,
+        3: 0.5,
+        4: 15,
+        5: 90,
+        6: 1000
+    }
+    for i in range(1, 7):
+        points += hits.get(i, 0) * tableMultiples[i]
+
+    return points
 
 def verifyGroupsOfHits(lines, generatorType):
     generator = generatorType()
@@ -82,12 +98,37 @@ def hits():
         hitsPR = verifyGroupsOfHits(lines, rg.GeneratorPureRandom)
         printTableResults(hitsPR, 'pr')
 
-hits()
+def fitnessMany():
+    with open('./msnumbers', 'rb') as file:
+        lines = pickle.load(file)
+        lines = convert_to_list(lines)
 
-"""
-current results (allWin):
-total registers 2514
-hits for BF 0
-hits for aa 0
-hits for pr 0
-"""
+        print('total registers', len(lines))
+        bests = []
+        for _ in range(1, len(lines)):
+            i = 3000 + random.randint(100, 1000)
+            hitsAA = verifyGroupsOfHits(lines, rg.GeneratorAALow)
+            score = multiplyHits(hitsAA)
+
+            bests.append(score)
+            print(score)
+        print()
+        print(sum(bests) / len(bests), '+')
+
+def fitness():
+    with open('./msnumbers', 'rb') as file:
+        lines = pickle.load(file)
+        lines = convert_to_list(lines)
+
+        print('total registers', len(lines))
+
+        i = 1000 + random.randint(100, 1000)
+        hitsAA = verifyGroupsOfHits(lines, rg.GeneratorAALow, i)
+        score = multiplyHits(hitsAA)
+        d = {
+            "h": hitsAA,
+            "seed": i,
+            "score": score
+        }
+        print('seed', d["seed"], 'score', d['score'])
+        printTableResults(d["h"], 'aa')
